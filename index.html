@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    <form>
+    <form method="post" id="frm_nuevo_cliente">
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" class="form-control" id="nombre" placeholder="Nombre">
@@ -35,6 +37,39 @@
             <input type="text" class="form-control" id="apellido" placeholder="Apellido">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-    </form>      
+    </form>   
+    <script>
+        var formulario = document.getElementById('frm_nuevo_director');
+
+formulario.addEventListener('submit', function(e){
+    e.preventDefault();
+    alert("hola mundo")
+    var datos = new FormData(formulario);
+
+    console.log(datos.get('name'))
+
+    let url = 'http://54.226.58.33:3000/api/costumers';
+
+    fetch(url, {
+            method: 'POST',
+            body: datos,
+        })
+        .then(res => res)
+        .then(data => {
+            Swal.fire({
+                title:'Confirmacion',
+                text:data.mensaje,
+                icon: 'success'
+            });
+            $("#staticBackdrop").modal('hide');
+            formulario.reset();
+
+        })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+})
+
+    </script>   
 </body>
 </html>
