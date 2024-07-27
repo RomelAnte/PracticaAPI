@@ -40,7 +40,7 @@ document.getElementById('frm_nuevo_cliente').addEventListener('submit', function
         `;
     });
     console.log('Enviando solicitud:', {
-        url: 'http://18.223.168.112:3001/api/customers',
+        url: 'http://18.223.168.112:3001/api/costumers',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
