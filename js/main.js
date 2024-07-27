@@ -1,30 +1,38 @@
-var formulario = document.getElementById('frm_nuevo_director');
-
-formulario.addEventListener('submit', function(e){
+document.getElementById('registroForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    alert("hola mundo")
-    var datos = new FormData(formulario);
-
-    console.log(datos.get('name'))
-
-    let url = 'http://54.226.58.33:3000/api/costumers';
-
-    fetch(url, {
-            method: 'POST',
-            body: datos,
-        })
-        .then(res => res)
-        .then(data => {
-            Swal.fire({
-                title:'Confirmacion',
-                text:data.mensaje,
-                icon: 'success'
-            });
-            $("#staticBackdrop").modal('hide');
-            formulario.reset();
-
-        })
-    .catch((error) => {
+    
+    const formData = {
+        name: document.getElementById('nombre').value,
+        email: document.getElementById('email').value,
+        estado: document.getElementById('estado').value,
+        age: document.getElementById('años').value,
+        lastName: document.getElementById('apellido').value
+    };
+    
+    fetch('http://18.223.168.112:3001/api/costumers', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById('resultado').innerHTML = `
+            <h2>Registro exitoso:</h2>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+        `;
+    })
+    .catch(error => {
         console.error('Error:', error);
+        document.getElementById('resultado').innerHTML = `
+            <h2>Error:</h2>
+            <p>${error.message}</p>
+        `;
     });
-})
+});
