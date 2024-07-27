@@ -1,48 +1,28 @@
-/*
-    formulario.addEventListener('submit', function(e){
-    e.preventDefault();
-
-    var datos = new FormData(formulario);
-
-    console.log(datos.get('nombre'))
-
-    let url = 'http://localhost:8000/guardarDirector/';
-
-    fetch(url, {
-            method: 'POST',
-            body: datos,
-        })
-        .then(res => res)
-        .then(data => {
-            Swal.fire({
-                title:'Confirmacion',
-                text:data.mensaje,
-                icon: 'success'
-            });
-            $("#staticBackdrop").modal('hide');
-            formulario.reset();
-
-        })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-})
-*/
-var formulario = document.getElementById('frm_nuevo_cliente');
-formulario.addEventListener('submit', function(e) {
+document.getElementById('frm_nuevo_cliente').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    var datos = new FormData(formulario);
-
-    console.log(datos.get('nombre'));
-
+    const formData = {
+        name: document.getElementById('nombre').value,
+        email: document.getElementById('email').value,
+        estado: document.getElementById('estado').value,
+        age: document.getElementById('años').value,
+        lastName: document.getElementById('apellido').value
+    };
+    
     fetch('http://18.223.168.112:3001/api/costumers', {
         method: 'POST',
-        body: datos,
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
     })
     .then(response => {
+        console.log('Respuesta completa:', response);
         if (!response.ok) {
-            throw new Error('Error en la respuesta del servidor');
+            return response.text().then(text => {
+                throw new Error(`Error del servidor: ${response.status} ${response.statusText}\n${text}`);
+            });
         }
         return response.json();
     })
@@ -59,5 +39,13 @@ formulario.addEventListener('submit', function(e) {
             <p>${error.message}</p>
         `;
     });
-
+    console.log('Enviando solicitud:', {
+        url: 'http://18.223.168.112:3001/api/customers',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: formData
+    });
 });
