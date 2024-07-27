@@ -1,14 +1,13 @@
 document.getElementById('frm_nuevo_cliente').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const formData = 
-        {
-            "name": "Pepito",
-            "email": "romel.ante6250@utc.edu.ec",
-            "estado": true,
-            "age": 22,
-            "lastName": "Perez"
-        };
+    const formData = {
+        name: document.getElementById('nombre').value,
+        email: document.getElementById('email').value,
+        estado: document.getElementById('estado').value,
+        age: document.getElementById('años').value,
+        lastName: document.getElementById('apellido').value
+    };
     
     fetch('http://18.223.168.112:3001/api/costumers', {
         method: 'POST',
