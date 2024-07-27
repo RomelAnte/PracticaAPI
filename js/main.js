@@ -1,4 +1,4 @@
-document.getElementById('registroForm').addEventListener('submit', function(e) {
+document.getElementById('frm_nuevo_cliente').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const formData = {
