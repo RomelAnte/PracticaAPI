@@ -1,20 +1,44 @@
-document.getElementById('frm_nuevo_cliente').addEventListener('submit', function(e) {
+/*
+    formulario.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var datos = new FormData(formulario);
+
+    console.log(datos.get('nombre'))
+
+    let url = 'http://localhost:8000/guardarDirector/';
+
+    fetch(url, {
+            method: 'POST',
+            body: datos,
+        })
+        .then(res => res)
+        .then(data => {
+            Swal.fire({
+                title:'Confirmacion',
+                text:data.mensaje,
+                icon: 'success'
+            });
+            $("#staticBackdrop").modal('hide');
+            formulario.reset();
+
+        })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+})
+*/
+var formulario = document.getElementById('frm_nuevo_cliente');
+formulario.addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const formData = {
-        name: document.getElementById('nombre').value,
-        email: document.getElementById('email').value,
-        estado: document.getElementById('estado').value,
-        age: document.getElementById('años').value,
-        lastName: document.getElementById('apellido').value
-    };
-    
+    var datos = new FormData(formulario);
+
+    console.log(datos.get('nombre'));
+
     fetch('http://18.223.168.112:3001/api/costumers', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
+        body: datos,
     })
     .then(response => {
         if (!response.ok) {
@@ -35,4 +59,5 @@ document.getElementById('frm_nuevo_cliente').addEventListener('submit', function
             <p>${error.message}</p>
         `;
     });
+
 });
