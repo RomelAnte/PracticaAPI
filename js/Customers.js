@@ -19,22 +19,26 @@ $('#frm_nuevo_cliente').on('submit', function(event) {
         body: JSON.stringify(formData)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {                
+        Swal.fire({
+            title:'Confirmacion',
+            text:data.mensaje,
+            icon: 'success'
+        });
+        $("#staticBackdrop").modal('hide');
+        $('#frm_nuevo_cliente').reset();
+    })
     .catch(error => console.error('Error:', error));
+    limpiarFormulario();
 });
 function cargarClientes(){
     $('#tb_register').empty();
     fetch('http://18.117.122.104:3001/api/costumers')
     .then(response => response.json())
     .then(data => {
-        // Crear la tabla
         let table = $('#tb_register');
-
-        // Añadir una fila por cada objeto en los datos
         data.forEach(obj => {
             let row = $('<tr></tr>');
-
-            // Añadir una celda por cada propiedad en el objeto
             for (let key in obj) {
                 let cell = $('<td></td>');
                 cell.text(obj[key]);
@@ -43,9 +47,15 @@ function cargarClientes(){
 
             table.append(row);
         });
-
-        tbody.append(row);
     })
     .catch(error => console.error('Error:', error));
 }
 cargarClientes();
+
+function limpiarFormulario(){
+    $('#nombre').val("");
+    $('#email').val("");
+    $('#estado').val("");
+    $('#años').val("");
+    $('#apellido').val("");
+}
