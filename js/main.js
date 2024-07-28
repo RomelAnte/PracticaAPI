@@ -1,51 +1,51 @@
-document.getElementById('frm_nuevo_cliente').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
+$('#frm_nuevo_cliente').on('submit', function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe de la manera predeterminada
+
     const formData = {
-        name: document.getElementById('nombre').value,
-        email: document.getElementById('email').value,
-        estado: document.getElementById('estado').value,
-        age: document.getElementById('años').value,
-        lastName: document.getElementById('apellido').value
+        name: $('#nombre').val(),
+        email: $('#email').val(),
+        estado: $('#estado').val() === 'true', // Convierte el valor a un booleano
+        age: parseInt($('#años').val(), 10), // Convierte el valor a un número entero
+        lastName: $('#apellido').val()
     };
-    
-    fetch('http://18.223.168.112:3001/api/costumers', {
+
+    // Aquí puedes hacer tu petición POST con los datos del formulario
+    // Por ejemplo, con la función fetch:
+    fetch('http://18.117.122.104:3001/api/costumers', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
     })
-    .then(response => {
-        console.log('Respuesta completa:', response);
-        if (!response.ok) {
-            return response.text().then(text => {
-                throw new Error(`Error del servidor: ${response.status} ${response.statusText}\n${text}`);
-            });
-        }
-        return response.json();
-    })
-    .then(data => {
-        document.getElementById('resultado').innerHTML = `
-            <h2>Registro exitoso:</h2>
-            <pre>${JSON.stringify(data, null, 2)}</pre>
-        `;
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('resultado').innerHTML = `
-            <h2>Error:</h2>
-            <p>${error.message}</p>
-        `;
-    });
-    console.log('Enviando solicitud:', {
-        url: 'http://18.223.168.112:3001/api/costumers',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: formData
-    });
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
 });
+cargarClientes();
+function cargarClientes(){
+    $('#tb_register').empty();
+    fetch('http://18.117.122.104:3001/api/costumers')
+    .then(response => response.json())
+    .then(data => {
+        // Crear la tabla
+        let table = $('#tb_register');
+
+        // Añadir una fila por cada objeto en los datos
+        data.forEach(obj => {
+            let row = $('<tr></tr>');
+
+            // Añadir una celda por cada propiedad en el objeto
+            for (let key in obj) {
+                let cell = $('<td></td>');
+                cell.text(obj[key]);
+                row.append(cell);
+            }
+
+            table.append(row);
+        });
+
+        tbody.append(row);
+    })
+    .catch(error => console.error('Error:', error));
+}

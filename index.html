@@ -38,8 +38,23 @@
                 <input type="text" class="form-control" id="apellido" placeholder="Apellido">
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" onclick="cargarClientes();">Submit</button>
         </form>   
+        <br><br><br>
+        <table class="table table-striped-columns table-hover" id="table-custommer">
+            <thead>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>CORREO</th>
+                <th>ESTADO</th>
+                <th>FECHA</th>
+                <th>EDAD</th>
+                <th>APELLIDO</th>
+            </thead>
+            <tbody id="tb_register">
+
+            </tbody>
+        </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="./js/main.js"></script>
