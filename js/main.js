@@ -22,7 +22,6 @@ $('#frm_nuevo_cliente').on('submit', function(event) {
     .then(data => console.log(data))
     .catch(error => console.error('Error:', error));
 });
-cargarClientes();
 function cargarClientes(){
     $('#tb_register').empty();
     fetch('http://18.117.122.104:3001/api/costumers')
@@ -49,3 +48,4 @@ function cargarClientes(){
     })
     .catch(error => console.error('Error:', error));
 }
+cargarClientes();
