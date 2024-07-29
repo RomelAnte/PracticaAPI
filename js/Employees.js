@@ -11,7 +11,7 @@ $('#frm_nuevo_cliente').on('submit', function(event) {
 
     // Aquí puedes hacer tu petición POST con los datos del formulario
     // Por ejemplo, con la función fetch:
-    fetch('http://18.117.122.104:3001/api/costumers', {
+    fetch('http://54.196.192.201:3000/api/employee', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -31,9 +31,9 @@ $('#frm_nuevo_cliente').on('submit', function(event) {
     .catch(error => console.error('Error:', error));
     limpiarFormulario();
 });
-function cargarClientes(){
+function cargarEmpleados(){
     $('#tb_register').empty();
-    fetch('http://18.117.122.104:3001/api/costumers')
+    fetch('http://54.196.192.201:3000/api/employee')
     .then(response => response.json())
     .then(data => {
         let table = $('#tb_register');
@@ -50,7 +50,7 @@ function cargarClientes(){
     })
     .catch(error => console.error('Error:', error));
 }
-cargarClientes();
+cargarEmpleados();
 
 function limpiarFormulario(){
     $('#nombre').val("");
