@@ -1,9 +1,10 @@
-$('#frm_nuevo_cliente').on('submit', function(event) {
+$('#frm_nuevo_empleado').on('submit', function(event) {
     event.preventDefault(); // Evita que el formulario se envíe de la manera predeterminada
 
     const formData = {
         name: $('#nombre').val(),
-        email: $('#email').val(),
+        rol: $('#rol').val(),
+        salario: parseFloat($('#salario').val()),
         estado: $('#estado').val() === 'true', // Convierte el valor a un booleano
         age: parseInt($('#años').val(), 10), // Convierte el valor a un número entero
         lastName: $('#apellido').val()
@@ -11,7 +12,7 @@ $('#frm_nuevo_cliente').on('submit', function(event) {
 
     // Aquí puedes hacer tu petición POST con los datos del formulario
     // Por ejemplo, con la función fetch:
-    fetch('http://54.196.192.201:3000/api/employee', {
+    fetch('http://54.234.163.74:3000/api/employee', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -32,8 +33,8 @@ $('#frm_nuevo_cliente').on('submit', function(event) {
     limpiarFormulario();
 });
 function cargarEmpleados(){
-    $('#tb_register').empty();
-    fetch('http://54.196.192.201:3000/api/employee')
+    $('#table-employee').empty();
+    fetch('http://54.234.163.74:3000/api/employee')
     .then(response => response.json())
     .then(data => {
         let table = $('#tb_register');
@@ -47,6 +48,7 @@ function cargarEmpleados(){
 
             table.append(row);
         });
+        $('#table-employee').DataTable();
     })
     .catch(error => console.error('Error:', error));
 }

@@ -61,18 +61,25 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" id="frm_nuevo_cliente">
+                                <form method="post" id="frm_nuevo_empleado">
                                     <div class="form-group">
                                         <label for="nombre">Nombre:</label>
                                         <input type="text" class="form-control" id="nombre" placeholder="Nombre">
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Rol:</label>
-                                        <select class="form-control" id="estado">
+                                        <select class="form-control" id="rol">
                                             <option>-- Seleccione una opcion --</option>
-                                            <option value="true">Verdadero</option>
-                                            <option value="false">Falso</option>
+                                            <option value="Reponedores">Reponedores</option>
+                                            <option value="Trabajadores de almacén">Trabajadores de almacén</option>
+                                            <option value="Cajeros">Cajeros</option>
+                                            <option value="Empleados de sección">Empleados de sección</option>
+                                            <option value="Mantenimiento y limpieza">Mantenimiento y limpieza</option>
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="años">Salario:</label>
+                                        <input type="number" class="form-control" id="salario">
                                     </div>
                                     <div class="form-group">
                                         <label for="estado">Estado:</label>
@@ -83,8 +90,8 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="años">Años:</label>
-                                        <input type="number" class="form-control" id="años" placeholder="Años">
+                                        <label for="años">Edad:</label>
+                                        <input type="number" class="form-control" id="años">
                                     </div>
                                     <div class="form-group">
                                         <label for="apellido">Apellido:</label>
@@ -93,7 +100,7 @@
                                     <br>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary"
-                                            onclick="cargarClientes();">Submit</button>
+                                            onclick="cargarEmpleados();">Submit</button>
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                             onclick="limpiarFormulario()">Close</button>
                                     </div>
@@ -103,11 +110,12 @@
                     </div>
                 </div>
                 <br>
-                <table class="table table-striped-columns table-hover" id="table-custommer">
+                <table class="table table-striped-columns table-hover" id="table-employee">
                     <thead>
                         <th>ID</th>
                         <th>NOMBRE</th>
-                        <th>CORREO</th>
+                        <th>ROL</th>
+                        <th>SALARIO</th>
                         <th>ESTADO</th>
                         <th>FECHA</th>
                         <th>EDAD</th>

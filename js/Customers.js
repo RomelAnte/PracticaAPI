@@ -1,25 +1,30 @@
 $('#frm_nuevo_cliente').on('submit', function(event) {
-    event.preventDefault(); // Evita que el formulario se envíe de la manera predeterminada
+    event.preventDefault(); 
 
     const formData = {
         name: $('#nombre').val(),
         email: $('#email').val(),
-        estado: $('#estado').val() === 'true', // Convierte el valor a un booleano
-        age: parseInt($('#años').val(), 10), // Convierte el valor a un número entero
+        estado: $('#estado').val() === 'true', 
+        age: parseInt($('#años').val(), 10), 
         lastName: $('#apellido').val()
     };
 
-    // Aquí puedes hacer tu petición POST con los datos del formulario
-    // Por ejemplo, con la función fetch:
-    fetch('http://54.196.192.201:3000/api/costumers', {
+    fetch('http://54.234.163.74:3000/api/costumers', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
     })
-    .then(response => response.json())
-    .then(data => {                
+    .then(response => {
+        console.log('Status:', response.status);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {         
+        console.log('Respuesta del servidor:', data);       
         Swal.fire({
             title:'Confirmacion',
             text:data.mensaje,
@@ -33,7 +38,7 @@ $('#frm_nuevo_cliente').on('submit', function(event) {
 });
 function cargarClientes(){
     $('#table-custommer').empty();
-    fetch('http://54.196.192.201:3000/api/costumers')
+    fetch('http://54.234.163.74:3000/api/costumers')
     .then(response => response.json())
     .then(data => {
         let table = $('#tb_register');
@@ -47,7 +52,6 @@ function cargarClientes(){
 
             table.append(row);
         });
-        $('#table-custommer').DataTable();
     })
     .catch(error => console.error('Error:', error));
 }
