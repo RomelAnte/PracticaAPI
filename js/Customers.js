@@ -1,6 +1,6 @@
 $('#frm_nuevo_cliente').on('submit', function(event) {
     event.preventDefault(); 
-
+    
     const formData = {
         name: $('#nombre').val(),
         email: $('#email').val(),
@@ -9,20 +9,14 @@ $('#frm_nuevo_cliente').on('submit', function(event) {
         lastName: $('#apellido').val()
     };
 
-    fetch('http://54.234.163.74:3000/api/costumers', {
+    fetch('http://18.117.122.104:3001/api/costumers', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData)        
     })
-    .then(response => {
-        console.log('Status:', response.status);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {         
         console.log('Respuesta del servidor:', data);       
         Swal.fire({
@@ -35,10 +29,9 @@ $('#frm_nuevo_cliente').on('submit', function(event) {
     })
     .catch(error => console.error('Error:', error));
     limpiarFormulario();
-});
+})
 function cargarClientes(){
-    $('#table-custommer').empty();
-    fetch('http://54.234.163.74:3000/api/costumers')
+    fetch('http://18.117.122.104:3001/api/costumers')
     .then(response => response.json())
     .then(data => {
         let table = $('#tb_register');
