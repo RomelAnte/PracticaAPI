@@ -9,7 +9,7 @@ $('#frm_nuevo_cliente').on('submit', function (event) {
         lastName: $('#apellido').val()
     };
 
-    fetch('http://18.117.122.104:3001/api/costumers', {
+    fetch('http://184.73.255.67:3000/api/costumers', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ $('#frm_nuevo_cliente').on('submit', function (event) {
     limpiarFormulario();
 })
 function cargarClientes() {
-    fetch('http://18.117.122.104:3001/api/costumers')
+    fetch('http://184.73.255.67:3000/api/costumers')
         .then(response => response.json())
         .then(data => {
             let table = $('#tb_register');
