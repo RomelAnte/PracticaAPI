@@ -1,39 +1,39 @@
-$('#frm_nuevo_empleado').on('submit', function(event) {
-    event.preventDefault(); // Evita que el formulario se envíe de la manera predeterminada
-
+$('#frm_nuevo_proveedor').on('submit', function(event) {
+    event.preventDefault(); 
+    
     const formData = {
         name: $('#nombre').val(),
-        rol: $('#rol').val(),
-        salario: parseFloat($('#salario').val()),
-        estado: $('#estado').val() === 'true', // Convierte el valor a un booleano
-        age: parseInt($('#años').val(), 10), // Convierte el valor a un número entero
+        direcciom: $('#direccion').val(),
+        telefono: $('#telefono').val(),
+        email: $('#email').val(),
+        estado: $('#estado').val() === 'true', 
+        age: parseInt($('#años').val(), 10), 
         lastName: $('#apellido').val()
     };
 
-    // Aquí puedes hacer tu petición POST con los datos del formulario
-    // Por ejemplo, con la función fetch:
-    fetch('http://18.117.122.104:3001/api/employee', {
+    fetch('http://18.117.122.104:3001/api/supplier', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData)        
     })
     .then(response => response.json())
-    .then(data => {                
+    .then(data => {         
+        console.log('Respuesta del servidor:', data);       
         Swal.fire({
             title:'Confirmacion',
             text:data.mensaje,
             icon: 'success'
         });
         $("#staticBackdrop").modal('hide');
-        $('#frm_nuevo_cliente').reset();
+        $('#frm_nuevo_proveedor').reset();
     })
     .catch(error => console.error('Error:', error));
     limpiarFormulario();
-});
-function cargarEmpleados(){
-    fetch('http://18.117.122.104:3001/api/employee')
+})
+function cargarProveedor(){
+    fetch('http://18.117.122.104:3001/api/supplier')
     .then(response => response.json())
     .then(data => {
         let table = $('#tb_register');
@@ -50,7 +50,7 @@ function cargarEmpleados(){
     })
     .catch(error => console.error('Error:', error));
 }
-cargarEmpleados();
+cargarProveedor();
 
 function limpiarFormulario(){
     $('#nombre').val("");
